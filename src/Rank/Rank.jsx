@@ -15,6 +15,7 @@ import daniela from "../assets/daniela.png"
 import { useState } from "react";
 
 import RankModal from "./RankModal/RankModal";
+import RankSlot from "./RankSlot/RankModal"
 
 function Rank() {
 	const date = new Date();
@@ -77,6 +78,11 @@ function Rank() {
 		return allCompetitors
 	}
 
+	const openModal = (rank) => {
+		setDisplayModal('flex')
+		setModalRank(rank)
+	}
+
   return (
 	<>
 		<RankModal display={displayModal}
@@ -89,56 +95,11 @@ function Rank() {
 		<DayTitle>
 			<h1>🔥 DAY {date.getDate()} 🔥</h1>
 		</DayTitle>
-		<PodiumContainer >
+		<PodiumContainer>
 			<img className="podium" src={podium} alt="podium" />
-			<AddButton
-			className="second-button"
-			rank={rank2} 
-			onClick={() => {
-				setModalRank(2)
-				setDisplayModal('flex')
-			}}>
-				{rank2.length > 0 ? rank2.map((competitor, index) => {
-					return (
-						<img  style={{
-						width: rank2.length > 1 ? "50%" : "100%",
-						height: rank2.length > 1 ? "50%" : "100%", }}
-						src={competitor} key={index} />
-					)
-				}) : <p>Adicione alguém ao pódio</p>}
-			</AddButton>
-			<AddButton
-			className="first-button"
-			rank={rank1}
-			onClick={() => {
-				setModalRank(1)
-				setDisplayModal('flex')
-			}}>
-				{rank1.length > 0 ? rank1.map((competitor, index) => {
-					return (
-						<img  style={{
-						width: rank1.length > 1 ? "50%" : "100%",
-						height: rank1.length > 1 ? "50%" : "100%", }}
-						src={competitor} key={index} />
-					)
-				}) : <p>Adicione alguém ao pódio</p>}
-			</AddButton>
-			<AddButton 
-			className="third-button"
-			rank={rank3}
-			onClick={() => {
-				setModalRank(3)
-				setDisplayModal('flex')
-			}}>
-				{rank3.length > 0 ? rank3.map((competitor, index) => {
-					return (
-						<img  style={{
-						width: rank3.length > 1 ? "50%" : "100%",
-						height: rank3.length > 1 ? "50%" : "100%", }}
-						src={competitor} key={index} />
-					)
-				}) : <p>Adicione alguém ao pódio</p>}
-			</AddButton>
+			<RankSlot rank={rank2} rankNumber={2} openModal={() => {openModal(2)}}/>
+			<RankSlot rank={rank1} rankNumber={1} openModal={() => {openModal(1)}}/>
+			<RankSlot rank={rank3} rankNumber={3} openModal={() => {openModal(3)}}/>
 		</PodiumContainer>
 	</Container>
 	</>
