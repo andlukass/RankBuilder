@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const AddButton = styled.div`
+export const Container = styled.div`
 	display: flex;
 	position: relative;
 	flex-direction: row;
@@ -10,20 +10,26 @@ export const AddButton = styled.div`
 	z-index: 99;
 	width: 150px;
 	height: 150px;
-	/* border: 2px solid black; */
-	&.third-button {
+	&.button3 {
 		margin-right: 70px;
 		margin-top: -20px;
-		justify-content: center;
 	}
-	&.second-button {
+	&.button2 {
 		margin-left: 70px;
 		margin-top: -40px;
-		justify-content: center;
 	}
-	&.first-button {
+	&.button1 {
 		margin-top: -90px;
-		justify-content: center;
+	}
+
+	.onePic {
+		width: 100%;
+		height: 100%;
+	}
+
+	.twoMorePics {
+		width: 50%;
+		height: 50%;
 	}
 
 	@media screen and (max-width: 600px) {

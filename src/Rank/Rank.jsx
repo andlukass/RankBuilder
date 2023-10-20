@@ -1,4 +1,4 @@
-import { AddButton, Container, DayTitle, PodiumContainer } from "./styles"
+import { Container, DayTitle, ModalContainer, PodiumContainer } from "./styles"
 
 import podium from "../assets/podium.png"
 import wesley from "../assets/wesley.png"
@@ -15,57 +15,56 @@ import daniela from "../assets/daniela.png"
 import { useState } from "react";
 
 import RankModal from "./RankModal/RankModal";
-import RankSlot from "./RankSlot/RankModal"
+import RankSlot from "./RankSlot/RankSlot"
 
 function Rank() {
 	const date = new Date();
-	const [displayModal, setDisplayModal] = useState('none');
-	const [modalRank, setModalRank] = useState(0);
+	const [displayModal, setDisplayModal] = useState('hide');
+	const [rankNumber, setRankNumber] = useState(0);
 	const competitors = [lucas, diogo, irina, wesley,
 					cintia, bruno, andre, andrep, elaine, daniela];
 	const [rank1, setRank1] = useState([]);
 	const [rank2, setRank2] = useState([]);
 	const [rank3, setRank3] = useState([]);
 
-	const addToRank = (rank, competitor) => {
+	const updateRank = (rank, competitor, isAdd) => {
 		if (rank === 1) {
-			setRank1([...rank1, competitor])
+			if (isAdd){
+				setRank1([...rank1, competitor])
+			} else {
+				setRank1(rank1.filter(item => item !== competitor))
+			}
 		}
 		if (rank === 2) {
-			setRank2([...rank2, competitor])
+			if (isAdd){
+				setRank2([...rank2, competitor])
+			} else {
+				setRank2(rank2.filter(item => item !== competitor))
+			}
 		}
 		if (rank === 3) {
-			setRank3([...rank3, competitor])
-		}
-	}
-
-	const removeFromRank = (rank, competitor) => {
-		if (rank === 1) {
-			setRank1(rank1.filter(item => item !== competitor))
-		}
-		if (rank === 2) {
-			setRank2(rank2.filter(item => item !== competitor))
-		}
-		if (rank === 3) {
-			setRank3(rank3.filter(item => item !== competitor))
+			if (isAdd){
+				setRank3([...rank3, competitor])
+			} else {
+				setRank3(rank3.filter(item => item !== competitor))
+			}
 		}
 	}
 
 	const closeModal = () => {
-		if (displayModal === 'flex') {
-			setDisplayModal('none')
+		if (displayModal === 'show') {
+			setDisplayModal('hide')
 		}
-		console.log(rank1)
 	}
 
 	const getRank = () => {
-		if (modalRank === 1) {
+		if (rankNumber === 1) {
 			return rank1
 		}
-		if (modalRank === 2) {
+		if (rankNumber === 2) {
 			return rank2
 		}
-		if (modalRank === 3) {
+		if (rankNumber === 3) {
 			return rank3
 		}
 	}
@@ -79,24 +78,25 @@ function Rank() {
 	}
 
 	const openModal = (rank) => {
-		setDisplayModal('flex')
-		setModalRank(rank)
+		setDisplayModal('show')
+		setRankNumber(rank)
 	}
 
   return (
 	<>
-		<RankModal display={displayModal}
-					modalRank={modalRank}
-					rank={getRank()}
-					allCompetitors={getCompetitors()}
-					addToRank={addToRank}
-					removeFromRank={removeFromRank} />
+		<ModalContainer className={displayModal}>
+			<RankModal
+						rankNumber={rankNumber}
+						rank={getRank()}
+						allCompetitors={getCompetitors()}
+						updateRank={updateRank} />
+		</ModalContainer>
 	<Container onClick={closeModal}>
 		<DayTitle>
 			<h1>🔥 DAY {date.getDate()} 🔥</h1>
 		</DayTitle>
 		<PodiumContainer>
-			<img className="podium" src={podium} alt="podium" />
+			<img className="podium" src={podium} />
 			<RankSlot rank={rank2} rankNumber={2} openModal={() => {openModal(2)}}/>
 			<RankSlot rank={rank1} rankNumber={1} openModal={() => {openModal(1)}}/>
 			<RankSlot rank={rank3} rankNumber={3} openModal={() => {openModal(3)}}/>
