@@ -4,16 +4,17 @@ import { ImagesContainer } from "./styles"
 function CompetitorsList({ allCompetitors, rank, rankNumber, updateRank }) {
 	return (
 		<ImagesContainer>
-			{(allCompetitors !== undefined && rank !== undefined) &&
-			allCompetitors.filter(competitor => !rank.includes(competitor))
-			.map((competitor, index) => {
+			{ rank !== undefined &&
+				allCompetitors.filter(competitor => !rank.includes(competitor))
+				.map((competitor, index) => {
 				return (
-						<img className="img"
-							onClick={() => {updateRank(rankNumber, competitor, true)}}
-							src={competitor}
-							key={index} />
-						)
-					})}
+					<img className="img"
+						onClick={() => {updateRank(rankNumber, competitor, true)}}
+						src={competitor}
+						key={index} />
+					)
+				})
+			}
 		</ImagesContainer>
 	)
 }

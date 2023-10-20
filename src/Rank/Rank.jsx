@@ -70,7 +70,6 @@ function Rank() {
 	}
 
 	const getCompetitors = () => {
-		// remove from competitors array, all values inside rank1 rank2 and rank3
 		let allCompetitors = competitors.filter(competitor => !rank1.includes(competitor));
 		allCompetitors = allCompetitors.filter(competitor => !rank2.includes(competitor));
 		allCompetitors = allCompetitors.filter(competitor => !rank3.includes(competitor));
@@ -82,29 +81,28 @@ function Rank() {
 		setRankNumber(rank)
 	}
 
-  return (
-	<>
-		<ModalContainer className={displayModal}>
-			<RankModal
-						rankNumber={rankNumber}
-						rank={getRank()}
-						allCompetitors={getCompetitors()}
-						updateRank={updateRank} />
-		</ModalContainer>
-	<Container onClick={closeModal}>
-		<DayTitle>
-			<h1>🔥 DAY {date.getDate()} 🔥</h1>
-		</DayTitle>
-		<PodiumContainer>
-			<img className="podium" src={podium} />
-			<RankSlot rank={rank2} rankNumber={2} openModal={() => {openModal(2)}}/>
-			<RankSlot rank={rank1} rankNumber={1} openModal={() => {openModal(1)}}/>
-			<RankSlot rank={rank3} rankNumber={3} openModal={() => {openModal(3)}}/>
-		</PodiumContainer>
-	</Container>
-	</>
-  )
+	return (
+		<>
+			<ModalContainer className={displayModal}>
+				<RankModal
+					rankNumber={rankNumber}
+					rank={getRank()}
+					allCompetitors={getCompetitors()}
+					updateRank={updateRank} />
+			</ModalContainer>
+			<Container onClick={closeModal}>
+				<DayTitle>
+					<h1>🔥 DAY {date.getDate()} 🔥</h1>
+				</DayTitle>
+				<PodiumContainer>
+					<img className="podium" src={podium} />
+					<RankSlot rank={rank2} rankNumber={2} openModal={() => {openModal(2)}}/>
+					<RankSlot rank={rank1} rankNumber={1} openModal={() => {openModal(1)}}/>
+					<RankSlot rank={rank3} rankNumber={3} openModal={() => {openModal(3)}}/>
+				</PodiumContainer>
+			</Container>
+		</>
+	)
 }
-
 
 export default Rank
