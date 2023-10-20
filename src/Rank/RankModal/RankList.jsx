@@ -1,22 +1,20 @@
 import PropTypes from 'prop-types';
-import { ImgRankContainer } from "./styles"
+import { ImagesContainer } from "./styles"
 
 function RankList({ rank, rankNumber, updateRank }) {
 	return (
-		<ImgRankContainer>
-				{rank !== undefined ?
+		<ImagesContainer className='upperBox'>
+			{rank !== undefined && rank.length > 0 ?
 				rank.map((competitor, index) => {
-					return (
-						<img onClick={() => {updateRank(rankNumber, competitor, false)}}
-						className="img"
-						style={{width: "100px", height: "100px"}}
-						src={competitor}
-						key={index} />
-						)
-					})
-					: <p>Adicione alguém ao pódio</p>
-				}
-		</ImgRankContainer>
+				return (
+					<img className="img"
+					onClick={() => {updateRank(rankNumber, competitor, false)}}
+					src={competitor}
+					key={index} />
+					)
+				}) : <p>Selecione uma foto</p>
+			}
+		</ImagesContainer>
 	)
 }
 

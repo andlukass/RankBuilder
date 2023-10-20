@@ -1,21 +1,20 @@
 import PropTypes from 'prop-types';
-import { ImgCompetitorContainer } from "./styles"
+import { ImagesContainer } from "./styles"
 
 function CompetitorsList({ allCompetitors, rank, rankNumber, updateRank }) {
 	return (
-		<ImgCompetitorContainer >
+		<ImagesContainer>
 			{(allCompetitors !== undefined && rank !== undefined) &&
 			allCompetitors.filter(competitor => !rank.includes(competitor))
 			.map((competitor, index) => {
 				return (
 						<img className="img"
 							onClick={() => {updateRank(rankNumber, competitor, true)}}
-							style={{width: "100px", height: "100px"}}
 							src={competitor}
 							key={index} />
 						)
 					})}
-		</ImgCompetitorContainer>
+		</ImagesContainer>
 	)
 }
 
